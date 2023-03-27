@@ -12,6 +12,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
+  int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -108,16 +110,87 @@ class _InputPageState extends State<InputPage> {
             ),
             Expanded(
               child: Row(
-                children: const [
+                children: [
                   Expanded(
                     child: ReusableCard(
-                      cardChild: Text('hello'),
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Weight',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(weight.toString(),
+                              style: const TextStyle(
+                                  fontSize: 50, fontWeight: FontWeight.w900)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.minus,
+                              ),
+                              const SizedBox(width: 12),
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.plus,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
-                      cardChild: Text('hello'),
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Age',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(age.toString(),
+                              style: const TextStyle(
+                                  fontSize: 50, fontWeight: FontWeight.w900)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.minus,
+                              ),
+                              const SizedBox(width: 12),
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.plus,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
+
                   ),
                 ],
               ),
@@ -125,6 +198,28 @@ class _InputPageState extends State<InputPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  const RoundIconButton(
+      {super.key, required this.icon, required this.onPressed});
+
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      child: Icon(icon, color: Color(0xFFE2E2E5)),
+      constraints: const BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      shape: const CircleBorder(),
+      fillColor: const Color(0xFF42474E),
     );
   }
 }
