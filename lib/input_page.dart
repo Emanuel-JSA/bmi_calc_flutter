@@ -1,3 +1,5 @@
+import 'package:bmi_calculator/calculator_service.dart';
+import 'package:bmi_calculator/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'gender_body_card.dart';
@@ -116,7 +118,7 @@ class _InputPageState extends State<InputPage> {
                       cardChild: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Weight',
                             style: TextStyle(
                               fontSize: 18,
@@ -190,12 +192,39 @@ class _InputPageState extends State<InputPage> {
                         ],
                       ),
                     ),
-
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 80,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () {
+                  CalculatorService calc =
+                      CalculatorService(height: height, weight: weight);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResultsPage(
+                        bmiResult: calc.calculateBMI(),
+                        resultText: calc.getResult(),
+                        interpretation: calc.getInterpretation(),
+                      ),
+                    ),
+                  );
+                },
+                child: Text('calculate', style: TextStyle(fontSize: 18)),
+              ),
+            ],
+          ),
         ),
       ),
     );
